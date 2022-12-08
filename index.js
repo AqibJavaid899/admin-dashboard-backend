@@ -27,3 +27,19 @@ app.use("/client", clientRoutes);
 app.use("/sales", salesRoutes);
 app.use("/management", managementRoutes);
 app.use("/general", generalRoutes);
+
+// MONGO_DB ATLAS CONNECTION and PORT SETUP
+const PORT = process.env.PORT || 9000;
+
+// To Remove the Mongoose Deprecation Warning in the Console
+mongoose.set("strictQuery", true);
+
+mongoose
+  .connect(process.env.MONGODB_ATLAS_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() =>
+    app.listen(PORT, () => console.log(`SERVER IS RUNNING ON PORT ${PORT}`)),
+  )
+  .catch((error) => console.log(`\n\n${error} did not connect.`));
