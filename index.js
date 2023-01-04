@@ -10,6 +10,8 @@ import clientRoutes from "./routes/client.js";
 import generalRoutes from "./routes/general.js";
 import salesRoutes from "./routes/sales.js";
 import managementRoutes from "./routes/management.js";
+import { dataUser } from "./data/index.js";
+import User from "./models/User.js";
 
 // CONFIGURATION SETUP
 dotenv.config();
@@ -39,7 +41,9 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() =>
-    app.listen(PORT, () => console.log(`SERVER IS RUNNING ON PORT ${PORT}`)),
-  )
+  .then(() => {
+    app.listen(PORT, () => console.log(`SERVER IS RUNNING ON PORT ${PORT}`));
+    // To Dump all of the User Data into the MongoDB Atlas in one go
+    // User.insertMany(dataUser);
+  })
   .catch((error) => console.log(`\n\n${error} did not connect.`));
